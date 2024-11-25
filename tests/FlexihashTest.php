@@ -5,6 +5,7 @@ namespace Flexihash\Tests;
 
 use Flexihash\Exception;
 use Flexihash\Flexihash;
+use Flexihash\Hasher\Crc32Hasher;
 use Flexihash\Tests\Hasher\MockHasher;
 
 /**
@@ -330,5 +331,20 @@ class FlexihashTest extends \PHPUnit\Framework\TestCase
             $hashSpace->__toString(),
             'Flexihash\Flexihash{targets:[t1,t2]}'
         );
+    }
+
+    public function testWeights(): void
+    {
+        $hasher = new Flexihash((new Crc32Hasher()), 10);
+
+        $hasher
+            ->addTarget('north', 0)
+            ->addTarget('east', 100)
+            ->addTarget('south', 100)
+            ->addTarget('west', 20);
+
+        $siteIDs = $hasher->lookupList('something', 4);
+
+        $this->assertEquals(['east', 'south', 'west'], $siteIDs);
     }
 }
