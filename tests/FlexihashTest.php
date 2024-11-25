@@ -5,6 +5,7 @@ namespace Flexihash\Tests;
 
 use Flexihash\Exception;
 use Flexihash\Flexihash;
+use Flexihash\Hasher\Crc32Hasher;
 use Flexihash\Tests\Hasher\MockHasher;
 
 /**
